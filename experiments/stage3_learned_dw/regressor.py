@@ -49,12 +49,25 @@ def train_dw_regressor(
     lr: float = 3e-3,
     seed: int = 0,
     verbose: bool = True,
+    pos_weight: float = 1.0,
 ) -> Tuple[DwMLP, Dict[str, float]]:
+    """Train the D_w-hat regressor.
+
+    pos_weight: per-sample weight applied to positive (label > 0) examples
+    during the MSE loss. Default 1.0 (unweighted). Use ~10-20 when the
+    label distribution is heavily zero-biased (Phase 1 grid samples have
+    ~0.5% positives) so the gradient does not collapse to "predict 0".
+    """
     torch.manual_seed(seed)
     in_dim = X_train.shape[1]
     model = DwMLP(in_dim, hidden=hidden)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
-    loss_fn = nn.MSELoss()
+
+    def weighted_mse(pred, target):
+        w = torch.where(target > 1e-6,
+                        torch.full_like(target, float(pos_weight)),
+                        torch.ones_like(target))
+        return ((pred - target) ** 2 * w).mean()
 
     n = X_train.shape[0]
     best_val = float("inf")
@@ -68,7 +81,7 @@ def train_dw_regressor(
             xb, yb = X_train[idx], y_train[idx]
             opt.zero_grad()
             pred = model(xb)
-            loss = loss_fn(pred, yb)
+            loss = weighted_mse(pred, yb)
             loss.backward()
             opt.step()
             ep_loss += loss.item() * xb.shape[0]
@@ -76,12 +89,14 @@ def train_dw_regressor(
         model.eval()
         with torch.no_grad():
             val_pred = model(X_val)
-            val_mse = loss_fn(val_pred, y_val).item()
+            # Report PLAIN MSE for monitoring (so it's comparable across
+            # pos_weight settings).
+            val_mse = nn.functional.mse_loss(val_pred, y_val).item()
         if val_mse < best_val:
             best_val = val_mse
             best_state = {k: v.detach().clone() for k, v in model.state_dict().items()}
         if verbose and (ep % 10 == 0 or ep == epochs - 1):
-            print(f"  epoch {ep:3d}: train MSE {ep_loss:.4f}  val MSE {val_mse:.4f}")
+            print(f"  epoch {ep:3d}: train wMSE {ep_loss:.4f}  val MSE {val_mse:.4f}")
 
     if best_state is not None:
         model.load_state_dict(best_state)

@@ -58,4 +58,10 @@ if [ ! -f "$HERE/phase1.py" ]; then
     echo "Implement Phase 1 only AFTER user has confirmed the GPU budget."
     exit 2
 fi
+# Phase 1 step count / eval episodes / seed can be overridden via env vars.
+# Defaults (set inside phase1.py): 200_000 train steps, 40 eval episodes,
+# seed 0. On a single consumer GPU this runs in ~30-60 minutes total. On
+# CPU it runs in ~4-5 hours; for a CPU smoke test set
+#     STAGE3_PHASE1_STEPS=5000 STAGE3_PHASE1_EVAL_EPISODES=10
+# before invoking this script.
 python "$HERE/phase1.py"
