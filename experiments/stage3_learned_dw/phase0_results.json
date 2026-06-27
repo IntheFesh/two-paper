@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "conditions": {
+    "(a)_estimator_quality": true,
+    "(b)_charge_load_bearing": true,
+    "(c)_reversible_collapse": true
+  },
+  "thresholds": {
+    "estimator_max_median_rel_err": 0.2,
+    "estimator_min_rank_auc": 0.95,
+    "learned_gap_closure_fraction": 0.5,
+    "collapse_residual_fraction": 0.2
+  },
+  "constants": {
+    "gamma": 0.9,
+    "lam": 1.0,
+    "n_train_seeds": 200,
+    "n_val_seeds": 40,
+    "n_eval_seeds": 100
+  },
+  "train_metrics_val": {
+    "mae": 0.03369034081697464,
+    "rmse": 0.05831403285264969,
+    "median_rel_err_on_positives": 0.016514446586370468,
+    "mean_rel_err_on_positives": 0.026452673599123955,
+    "rank_auc_positive_vs_zero": 1.0,
+    "n_positives": 268,
+    "n_zeros": 454
+  },
+  "held_out_metrics": {
+    "mae": 0.03411501970834938,
+    "rmse": 0.07016009901594636,
+    "median_rel_err_on_positives": 0.017677436003046637,
+    "mean_rel_err_on_positives": 0.025975484132598908,
+    "rank_auc_positive_vs_zero": 1.0,
+    "n_positives": 672,
+    "n_zeros": 1080
+  },
+  "returns_summary": {
+    "irreversible": {
+      "reward_only": {
+        "mean": 1.2059784410030177,
+        "std": 0.426923808148201,
+        "n": 100
+      },
+      "oracle_mrc": {
+        "mean": 4.859964463254364,
+        "std": 2.3380453367273235,
+        "n": 100
+      },
+      "learned_mrc": {
+        "mean": 4.859964463254364,
+        "std": 2.3380453367273235,
+        "n": 100
+      }
+    },
+    "reversible": {
+      "reward_only": {
+        "mean": 5.579946457931944,
+        "std": 2.1127317744840663,
+        "n": 100
+      },
+      "oracle_mrc": {
+        "mean": 5.579946457931944,
+        "std": 2.1127317744840663,
+        "n": 100
+      },
+      "learned_mrc": {
+        "mean": 5.579946457931944,
+        "std": 2.1127317744840663,
+        "n": 100
+      }
+    }
+  },
+  "gaps": {
+    "oracle_gap_irr": 3.6539860222513467,
+    "learned_gap_irr": 3.6539860222513467,
+    "oracle_gap_rev": 0.0,
+    "learned_gap_rev": 0.0,
+    "gap_closure_ratio": 1.0,
+    "collapse_ratio": 0.0
+  },
+  "train_time_sec": 2.0578582286834717,
+  "eval_time_sec": 0.23090505599975586
+}
