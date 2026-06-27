@@ -1,0 +1,233 @@
+{
+  "overall_pass": true,
+  "runtime_seconds": 0.64546799659729,
+  "parameters": {
+    "gamma": 0.9,
+    "r_d": 0.3,
+    "r_g": 2.0,
+    "r_pickup": 0.01,
+    "r_toggle": 0.01,
+    "H_planner": 4,
+    "lambda": 1.0,
+    "pass_tol": 1e-09,
+    "gap_tol": 1e-06,
+    "layout": [
+      "........G",
+      "########.",
+      "S.K.D....",
+      "#########"
+    ]
+  },
+  "checks": {
+    "irreversible": {
+      "D_w_positive": true,
+      "MRC_beats_reward_only": true,
+      "MRC_matches_oracle": true,
+      "all_ok": true
+    },
+    "reversible": {
+      "D_w_zero": true,
+      "MRC_eq_reward_only": true,
+      "MRC_eq_oracle": true,
+      "reward_only_eq_oracle": true,
+      "all_ok": true
+    }
+  },
+  "per_mode": {
+    "irreversible": {
+      "mode": "irreversible",
+      "n_states": 16,
+      "n_targets": 1,
+      "goal_state_bfs_distance": 12,
+      "D_w_smash": 0.5648590729620002,
+      "V_star_start": 0.5795200729620003,
+      "vi_iterations": 14,
+      "results": {
+        "reward_only": {
+          "discounted_return": 0.3,
+          "raw_return": 0.3,
+          "steps": 1,
+          "success": false,
+          "final_state": "trap",
+          "trajectory_len": 1
+        },
+        "mrc": {
+          "discounted_return": 0.5795200729620004,
+          "raw_return": 2.02,
+          "steps": 13,
+          "success": true,
+          "final_state": "absorb",
+          "trajectory_len": 13
+        },
+        "oracle": {
+          "discounted_return": 0.5795200729620004,
+          "raw_return": 2.02,
+          "steps": 13,
+          "success": true,
+          "final_state": "absorb",
+          "trajectory_len": 13
+        }
+      },
+      "policy_at_start": {
+        "reward_only": "smash",
+        "mrc": "forward_E",
+        "oracle": "forward_E"
+      }
+    },
+    "reversible": {
+      "mode": "reversible",
+      "n_states": 16,
+      "n_targets": 1,
+      "goal_state_bfs_distance": 12,
+      "D_w_smash": 0.0,
+      "V_star_start": 0.8215680656658002,
+      "vi_iterations": 15,
+      "results": {
+        "reward_only": {
+          "discounted_return": 0.8215680656658002,
+          "raw_return": 2.32,
+          "steps": 14,
+          "success": true,
+          "final_state": "absorb",
+          "trajectory_len": 14
+        },
+        "mrc": {
+          "discounted_return": 0.8215680656658002,
+          "raw_return": 2.32,
+          "steps": 14,
+          "success": true,
+          "final_state": "absorb",
+          "trajectory_len": 14
+        },
+        "oracle": {
+          "discounted_return": 0.8215680656658002,
+          "raw_return": 2.32,
+          "steps": 14,
+          "success": true,
+          "final_state": "absorb",
+          "trajectory_len": 14
+        }
+      },
+      "policy_at_start": {
+        "reward_only": "smash",
+        "mrc": "smash",
+        "oracle": "smash"
+      }
+    }
+  },
+  "h_sweep": {
+    "irreversible": {
+      "H": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "reward_only": [
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.3,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004
+      ],
+      "mrc": [
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004,
+        0.5795200729620004
+      ],
+      "oracle": 0.5795200729620004
+    },
+    "reversible": {
+      "H": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "reward_only": [
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.5795200729620004,
+        0.8215680656658002,
+        0.8215680656658002
+      ],
+      "mrc": [
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.8215680656658002,
+        0.5795200729620004,
+        0.8215680656658002,
+        0.8215680656658002
+      ],
+      "oracle": 0.8215680656658002
+    }
+  },
+  "artifacts": {
+    "csv": "/home/user/two-paper/experiments/stage2_paper/benchmark/benchmark_results.csv",
+    "bars_pdf": "/home/user/two-paper/experiments/stage2_paper/benchmark/benchmark_returns.pdf",
+    "h_sweep_pdf": "/home/user/two-paper/experiments/stage2_paper/benchmark/benchmark_h_sweep.pdf"
+  }
+}
