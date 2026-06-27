@@ -1,0 +1,7 @@
+mode,planner,discounted_return,raw_return,steps,success,D_w_smash,policy_at_start,V_star_start
+irreversible,reward_only,0.300000000,0.300000000,1,False,0.564859073,smash,0.579520073
+irreversible,mrc,0.579520073,2.020000000,13,True,0.564859073,forward_E,0.579520073
+irreversible,oracle,0.579520073,2.020000000,13,True,0.564859073,forward_E,0.579520073
+reversible,reward_only,0.821568066,2.320000000,14,True,0.000000000,smash,0.821568066
+reversible,mrc,0.821568066,2.320000000,14,True,0.000000000,smash,0.821568066
+reversible,oracle,0.821568066,2.320000000,14,True,0.000000000,smash,0.821568066

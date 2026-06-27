@@ -30,11 +30,11 @@
         },
         {
           "k": 3,
-          "D_w": 1.778031,
+          "D_w": 1.7780310000000001,
           "V_obl": 1.0,
           "V_mrc": 1.7780310000000004,
           "delta_V_observed": 0.7780310000000004,
-          "delta_V_predicted": 0.7780309999999999
+          "delta_V_predicted": 0.7780310000000001
         },
         {
           "k": 4,
@@ -75,11 +75,11 @@
     "V2": {
       "name": "V2: irreversible vs reversible collapse",
       "irreversible": {
-        "D_w": 1.778031,
+        "D_w": 1.7780310000000001,
         "V_obl": 1.0,
         "V_mrc": 1.7780310000000004,
         "delta_V_observed": 0.7780310000000004,
-        "delta_V_predicted": 0.7780309999999999,
+        "delta_V_predicted": 0.7780310000000001,
         "match": true
       },
       "reversible": {
@@ -94,8 +94,8 @@
     },
     "V3": {
       "name": "V3: \u03bb phase transition",
-      "D_w": 1.778031,
-      "lam_min_theory": 0.562419890316873,
+      "D_w": 1.7780310000000001,
+      "lam_min_theory": 0.5624198903168729,
       "lam_star_observed": 0.5630000000000001,
       "grid_step": 0.001,
       "policy_at_lam_1": "a_safe",
