@@ -28,7 +28,7 @@
     "n_zeros": 454
   },
   "held_out_metrics": {
-    "mae": 0.03411501970834938,
+    "mae": 0.034115019708349376,
     "rmse": 0.07016009901594636,
     "median_rel_err_on_positives": 0.017677436003046637,
     "mean_rel_err_on_positives": 0.025975484132598908,
@@ -80,6 +80,6 @@
     "gap_closure_ratio": 1.0,
     "collapse_ratio": 0.0
   },
-  "train_time_sec": 2.0578582286834717,
-  "eval_time_sec": 0.23090505599975586
+  "train_time_sec": 2.229349374771118,
+  "eval_time_sec": 0.24152207374572754
 }
