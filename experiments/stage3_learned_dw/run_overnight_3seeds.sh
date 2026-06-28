@@ -56,17 +56,19 @@ for seed in $SEEDS; do
         bash "$HERE/run_stage3.sh" > "$log" 2>&1
     rc=$?
     elapsed=$((SECONDS - t0))
+    # Preserve per-seed results regardless of exit code -- a FAIL verdict
+    # is still data we want to inspect; the original overnight run lost
+    # all per-seed JSONs because they were only copied on exit 0.
+    if [ -f "$HERE/phase1_results/phase1_results.json" ]; then
+        cp "$HERE/phase1_results/phase1_results.json" \
+           "$HERE/phase1_results/phase1_results_seed${seed}.json"
+    fi
+    if [ -f "$HERE/phase1_results/dw_hat.pt" ]; then
+        cp "$HERE/phase1_results/dw_hat.pt" \
+           "$HERE/phase1_results/dw_hat_seed${seed}.pt"
+    fi
     if [ $rc -eq 0 ]; then
         SEED_STATUS[$seed]="OK (${elapsed}s)"
-        # Preserve per-seed results so they don't get overwritten.
-        if [ -f "$HERE/phase1_results/phase1_results.json" ]; then
-            cp "$HERE/phase1_results/phase1_results.json" \
-               "$HERE/phase1_results/phase1_results_seed${seed}.json"
-        fi
-        if [ -f "$HERE/phase1_results/dw_hat.pt" ]; then
-            cp "$HERE/phase1_results/dw_hat.pt" \
-               "$HERE/phase1_results/dw_hat_seed${seed}.pt"
-        fi
         echo "[seed=$seed] OK at $(date) (${elapsed}s)"
     else
         SEED_STATUS[$seed]="FAIL exit=$rc (${elapsed}s)"
