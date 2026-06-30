@@ -8,7 +8,7 @@
 # on every rollout.
 #
 # Requires: minigrid (Farama) + gymnasium + torch (CPU) + numpy +
-# matplotlib.  Pure CPU; ~2 minutes.  No GPU.
+# matplotlib.  Pure CPU; ~3 minutes.  No GPU.
 #
 # Exit code 0 iff the Stage-10 verdict is PASS.
 
