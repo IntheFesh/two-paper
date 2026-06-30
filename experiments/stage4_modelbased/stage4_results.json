@@ -1,0 +1,129 @@
+{
+  "overall_pass": true,
+  "wall_time_seconds": 0.027530670166015625,
+  "defaults": {
+    "m": 4,
+    "H": 4,
+    "r_d": 1.0,
+    "r_g": 1.0,
+    "gamma": 0.9
+  },
+  "lambda": 1.0,
+  "environment": "2D LavaCorridor twin (Stage-1 corridor embedded in 2D)",
+  "stage1_imports": [
+    "destroyed_mass",
+    "policy_obl",
+    "policy_mrc",
+    "rollout_value",
+    "MDP"
+  ],
+  "modules": {
+    "V_sep": {
+      "name": "V_sep: separation -- gap tracks destroyed mass",
+      "lambda": 1.0,
+      "H": 4,
+      "m": 4,
+      "rows": [
+        {
+          "k": 1,
+          "D_w": 0.6561,
+          "lam_min_theory": 1.5241579027587258,
+          "V_obl": 1.0,
+          "V_mrc": 1.0,
+          "gap_observed": 0.0,
+          "gap_predicted": 0.0,
+          "pointwise_match": true
+        },
+        {
+          "k": 2,
+          "D_w": 1.24659,
+          "lam_min_theory": 0.8021883698730136,
+          "V_obl": 1.0,
+          "V_mrc": 1.2465900000000003,
+          "gap_observed": 0.2465900000000003,
+          "gap_predicted": 0.2465900000000001,
+          "pointwise_match": true
+        },
+        {
+          "k": 3,
+          "D_w": 1.7780310000000001,
+          "lam_min_theory": 0.5624198903168729,
+          "V_obl": 1.0,
+          "V_mrc": 1.7780310000000004,
+          "gap_observed": 0.7780310000000004,
+          "gap_predicted": 0.7780310000000001,
+          "pointwise_match": true
+        },
+        {
+          "k": 4,
+          "D_w": 2.2563279,
+          "lam_min_theory": 0.44319799440497987,
+          "V_obl": 1.0,
+          "V_mrc": 2.2563279000000005,
+          "gap_observed": 1.2563279000000005,
+          "gap_predicted": 1.2563279,
+          "pointwise_match": true
+        },
+        {
+          "k": 5,
+          "D_w": 2.6867951100000003,
+          "lam_min_theory": 0.3721906431488183,
+          "V_obl": 1.0,
+          "V_mrc": 2.6867951100000007,
+          "gap_observed": 1.6867951100000007,
+          "gap_predicted": 1.6867951100000003,
+          "pointwise_match": true
+        },
+        {
+          "k": 6,
+          "D_w": 3.0742155990000004,
+          "lam_min_theory": 0.32528622921739325,
+          "V_obl": 1.0,
+          "V_mrc": 3.074215599000001,
+          "gap_observed": 2.074215599000001,
+          "gap_predicted": 2.0742155990000004,
+          "pointwise_match": true
+        }
+      ],
+      "monotone_in_Dw": true,
+      "pointwise_match": true,
+      "separation_fires": true,
+      "passed": true
+    },
+    "V_rec": {
+      "name": "V_rec: lambda phase transition",
+      "k": 3,
+      "D_w": 1.7780310000000001,
+      "lam_min_theory": 0.5624198903168729,
+      "lam_star_observed": 0.5630000000000001,
+      "grid_step": 0.001,
+      "policy_at_lam_1": "a_safe",
+      "switch_within_grid_step": true,
+      "lam1_picks_safe": true,
+      "separation_precondition": true,
+      "passed": true
+    },
+    "V_col": {
+      "name": "V_col: matched-twin collapse (causal identification)",
+      "k": 3,
+      "lambda": 1.0,
+      "irreversible": {
+        "D_w": 1.7780310000000001,
+        "V_obl": 1.0,
+        "V_mrc": 1.7780310000000004,
+        "gap_observed": 0.7780310000000004,
+        "gap_predicted": 0.7780310000000001,
+        "match": true
+      },
+      "reversible": {
+        "D_w": 0.0,
+        "V_obl": 2.6002279000000006,
+        "V_mrc": 2.6002279000000006,
+        "gap_observed": 0.0,
+        "D_w_zero": true,
+        "gap_zero": true
+      },
+      "passed": true
+    }
+  }
+}
