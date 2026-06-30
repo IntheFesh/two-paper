@@ -1,0 +1,163 @@
+{
+  "overall_pass": true,
+  "defaults": {
+    "m": 4,
+    "H": 4,
+    "r_d": 1.0,
+    "r_g": 1.0,
+    "gamma": 0.9
+  },
+  "lambda_large": 10.0,
+  "modules": {
+    "V1": {
+      "name": "V1: gap tracks destroyed mass",
+      "rows": [
+        {
+          "k": 1,
+          "D_w": 0.6561,
+          "V_obl": 1.0,
+          "V_mrc": 0.6561000000000001,
+          "delta_V_observed": -0.3438999999999999,
+          "delta_V_predicted": -0.3439
+        },
+        {
+          "k": 2,
+          "D_w": 1.24659,
+          "V_obl": 1.0,
+          "V_mrc": 1.2465900000000003,
+          "delta_V_observed": 0.2465900000000003,
+          "delta_V_predicted": 0.2465900000000001
+        },
+        {
+          "k": 3,
+          "D_w": 1.778031,
+          "V_obl": 1.0,
+          "V_mrc": 1.7780310000000004,
+          "delta_V_observed": 0.7780310000000004,
+          "delta_V_predicted": 0.7780309999999999
+        },
+        {
+          "k": 4,
+          "D_w": 2.2563279,
+          "V_obl": 1.0,
+          "V_mrc": 2.2563279000000005,
+          "delta_V_observed": 1.2563279000000005,
+          "delta_V_predicted": 1.2563279
+        },
+        {
+          "k": 5,
+          "D_w": 2.6867951100000003,
+          "V_obl": 1.0,
+          "V_mrc": 2.6867951100000007,
+          "delta_V_observed": 1.6867951100000007,
+          "delta_V_predicted": 1.6867951100000003
+        },
+        {
+          "k": 6,
+          "D_w": 3.0742155990000004,
+          "V_obl": 1.0,
+          "V_mrc": 3.074215599000001,
+          "delta_V_observed": 2.074215599000001,
+          "delta_V_predicted": 2.0742155990000004
+        }
+      ],
+      "fit": {
+        "slope": 1.0000000000000004,
+        "intercept": -1.0000000000000007
+      },
+      "expected": {
+        "slope": 1.0,
+        "intercept": -1.0
+      },
+      "pointwise_ok": true,
+      "passed": true
+    },
+    "V2": {
+      "name": "V2: irreversible vs reversible collapse",
+      "irreversible": {
+        "D_w": 1.778031,
+        "V_obl": 1.0,
+        "V_mrc": 1.7780310000000004,
+        "delta_V_observed": 0.7780310000000004,
+        "delta_V_predicted": 0.7780309999999999,
+        "match": true
+      },
+      "reversible": {
+        "D_w": 0.0,
+        "V_obl": 2.6002279000000006,
+        "V_mrc": 2.6002279000000006,
+        "delta_V_observed": 0.0,
+        "D_w_zero": true,
+        "delta_V_zero": true
+      },
+      "passed": true
+    },
+    "V3": {
+      "name": "V3: \u03bb phase transition",
+      "D_w": 1.778031,
+      "lam_min_theory": 0.562419890316873,
+      "lam_star_observed": 0.5630000000000001,
+      "grid_step": 0.001,
+      "policy_at_lam_1": "a_safe",
+      "switch_within_grid_step": true,
+      "passed": true
+    },
+    "V4": {
+      "name": "V4: resource \u2194 graph triple identity + renewable contrast",
+      "R_ok": true,
+      "Dw_ok": true,
+      "Q_ok": true,
+      "R_mismatches": [],
+      "Dw_mismatches": [],
+      "Q_mismatches": [],
+      "Dw_compared": 6,
+      "Q_compared": 6,
+      "renew": {
+        "D_w": 0.0,
+        "delta_V": 0.0,
+        "D_w_zero": true,
+        "delta_V_zero": true
+      },
+      "non_renewable_sanity": {
+        "D_w": 1.3122,
+        "V_obl": 1.0,
+        "V_mrc": 1.3122000000000003,
+        "delta_V_observed": 0.31220000000000026,
+        "delta_V_predicted": 0.31220000000000003
+      },
+      "passed": true
+    },
+    "V5": {
+      "name": "V5: self-consistency cross-checks",
+      "single_function_ok": true,
+      "destroyed_mass_qualname": "destroyed_mass",
+      "sample_call_count": 21,
+      "reversible_zero": {
+        "D_w_decoy": 0.0,
+        "D_w_trap_recover": 0.0,
+        "ok": true
+      },
+      "additivity": {
+        "D_full": 2.6867951100000003,
+        "D_A": 1.24659,
+        "D_B": 1.4402051100000004,
+        "A_targets": [
+          "c4",
+          "c5"
+        ],
+        "B_targets": [
+          "c6",
+          "c7",
+          "c8"
+        ],
+        "ok": true
+      },
+      "representation_invariance": {
+        "D_resource": 1.3122,
+        "D_graph": 1.3122,
+        "ok": true
+      },
+      "passed": true
+    }
+  }
+}
