@@ -1,0 +1,855 @@
+{
+  "block": "block4_non_oracle",
+  "verdict": "PARTIAL",
+  "verdict_meta": {
+    "verdict": "PARTIAL",
+    "reason": "Non-oracle supervision repaired collapse at 1 triggered rcps, failed at 2 (failure threshold at rcp >= 0.70).  Targeted reachability-consistency repair partially transfers under empirical-rollout labels; full repair requires more accurate reach signal at high corruption.",
+    "triggered_rcps": [
+      0.5,
+      0.7,
+      1.0
+    ],
+    "non_oracle_fixed_rcps": [
+      0.5
+    ],
+    "non_oracle_failed_rcps": [
+      0.7,
+      1.0
+    ],
+    "oracle_fixed_rcps": [
+      0.5,
+      0.7,
+      1.0
+    ]
+  },
+  "wall_time_s": 180.06833028793335,
+  "defaults": {
+    "m": 4,
+    "H": 4,
+    "r_d": 1.0,
+    "r_g": 1.0,
+    "gamma": 0.9,
+    "k": 3
+  },
+  "lambda": 1.0,
+  "reach_weight": 3.0,
+  "n_rollouts_nonoracle": 60,
+  "rollout_len_nonoracle": 25,
+  "rcp_levels": [
+    0.0,
+    0.2,
+    0.3,
+    0.5,
+    0.7,
+    1.0
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "epochs": 800,
+  "per_run": [
+    {
+      "rcp": 0.0,
+      "seed": 0,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.0,
+      "seed": 1,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.0,
+      "seed": 2,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.2,
+      "seed": 0,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.34724179207170014,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.2,
+      "seed": 1,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.31023580270117523,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.2,
+      "seed": 2,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.2994597369073034,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.3,
+      "seed": 0,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.5026690745927096,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.3,
+      "seed": 1,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.4608157355868817,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.3,
+      "seed": 2,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.4344855579203368,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.5,
+      "seed": 0,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.805275572377503,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.5,
+      "seed": 1,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 7.821321487426758e-08,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.7593054049399497,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.5,
+      "seed": 2,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.8337021817483307,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.7,
+      "seed": 0,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 1.2278823054932357,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.7,
+      "seed": 1,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 7.821321487426758e-08,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 1.1464819279232026,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 0.7,
+      "seed": 2,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 1.319403663517177,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 1.0,
+      "seed": 0,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.752878053718761,
+        "Dw_rev": 1.7552988043887243,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 1.0,
+      "seed": 1,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7567653658013997,
+        "Dw_rev": 1.7556777625013862,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    },
+    {
+      "rcp": 1.0,
+      "seed": 2,
+      "baseline": {
+        "Dw_irr": 1.7780310000000001,
+        "Dw_rev": 1.7780310000000001,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 0.0,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 2.6002279000000006,
+        "collapse_ratio": 0.0,
+        "charge_load_ratio": 1.0
+      },
+      "non_oracle": {
+        "Dw_irr": 1.7639287045769803,
+        "Dw_rev": 1.7663785068917954,
+        "R_obl_irr": 1.0,
+        "R_mrc_irr": 1.7780310000000004,
+        "R_obl_rev": 2.6002279000000006,
+        "R_mrc_rev": 1.7780310000000004,
+        "collapse_ratio": 1.0567662471032644,
+        "charge_load_ratio": 1.0
+      },
+      "oracle_gap_irr": 0.7780310000000004
+    }
+  ],
+  "aggregated": [
+    {
+      "rcp": 0.0,
+      "n_seeds": 3,
+      "baseline": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7780310000000001
+      },
+      "oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7578573746990471
+      },
+      "non_oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7578573746990471
+      }
+    },
+    {
+      "rcp": 0.2,
+      "n_seeds": 3,
+      "baseline": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7780310000000001
+      },
+      "oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7578573746990471
+      },
+      "non_oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.3189791105600596,
+        "mean_Dw_irr": 1.7578573746990471
+      }
+    },
+    {
+      "rcp": 0.3,
+      "n_seeds": 3,
+      "baseline": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7780310000000001
+      },
+      "oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7578573746990471
+      },
+      "non_oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.46599012269997603,
+        "mean_Dw_irr": 1.7578573746990471
+      }
+    },
+    {
+      "rcp": 0.5,
+      "n_seeds": 3,
+      "baseline": {
+        "mean_collapse": 0.7045108314021763,
+        "max_collapse": 1.0567662471032644,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 1.185354,
+        "mean_Dw_irr": 1.7780310000000001
+      },
+      "oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 2.607107162475586e-08,
+        "mean_Dw_irr": 1.7578573746990471
+      },
+      "non_oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.7994277196885945,
+        "mean_Dw_irr": 1.7578573746990471
+      }
+    },
+    {
+      "rcp": 0.7,
+      "n_seeds": 3,
+      "baseline": {
+        "mean_collapse": 0.7045108314021763,
+        "max_collapse": 1.0567662471032644,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 1.185354,
+        "mean_Dw_irr": 1.7780310000000001
+      },
+      "oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 2.607107162475586e-08,
+        "mean_Dw_irr": 1.7578573746990471
+      },
+      "non_oracle": {
+        "mean_collapse": 0.35225541570108815,
+        "max_collapse": 1.0567662471032644,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 1.2312559656445383,
+        "mean_Dw_irr": 1.7578573746990471
+      }
+    },
+    {
+      "rcp": 1.0,
+      "n_seeds": 3,
+      "baseline": {
+        "mean_collapse": 1.0567662471032644,
+        "max_collapse": 1.0567662471032644,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 1.7780310000000001,
+        "mean_Dw_irr": 1.7780310000000001
+      },
+      "oracle": {
+        "mean_collapse": 0.0,
+        "max_collapse": 0.0,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 0.0,
+        "mean_Dw_irr": 1.7578573746990471
+      },
+      "non_oracle": {
+        "mean_collapse": 1.0567662471032644,
+        "max_collapse": 1.0567662471032644,
+        "mean_charge": 1.0,
+        "min_charge": 1.0,
+        "mean_Dw_rev": 1.759118357927302,
+        "mean_Dw_irr": 1.7578573746990471
+      }
+    }
+  ],
+  "cheat_check": "assert_planner_cheat_free on every rollout; non-oracle labels are computed from rollouts in the noisy env (no access to mdp_true outside rollout env-step)."
+}
