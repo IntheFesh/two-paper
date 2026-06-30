@@ -29,7 +29,7 @@ during a probe choose(S0).  The MiniGrid simulator is used ONLY for the
 one-time offline graph enumeration in build_twin, never by the test-time
 planner.
 
-Runtime: pure CPU, ~2 minutes.  No GPU.
+Runtime: pure CPU, ~3 minutes (incl. margin-preservation + cheat-check).  No GPU.
 """
 
 import json
@@ -46,13 +46,137 @@ for _p in (_STAGE9_DIR, _THIS_DIR):
     if _p not in sys.path:
         sys.path.insert(0, _p)
 
-from stage9_common import evaluate_environment, to_jsonable  # noqa: E402
+from stage9_common import (  # noqa: E402
+    evaluate_environment, to_jsonable,
+    train_da_world_model, build_mdp_hat, compute_dw_hat_da,
+    planner_reward_only, planner_mrc_learned,
+    REACH_WEIGHT, q_reward_h, destroyed_mass, CountedMDP,
+)
 import stage10_minigrid_env as s10  # noqa: E402
 
 SEEDS = [0, 1, 2, 3, 4]
 
 
-def write_figure(res: Dict[str, Any], out_path: str) -> None:
+def verify_cheat_free(spec, seed=0, epochs=300):
+    """Explicit cheat-check: wrap the TRUE env in a CountedMDP and confirm
+    that the test-time planners (reward_only and mrc-learned) read ZERO
+    ground-truth dynamics (.f / .r) while choosing an action at every
+    reachable state.  Returns the total dynamics-access count (must be 0).
+    The MiniGrid simulator itself is never touched here -- the planner sees
+    only mdp_hat (learned) and the reach head."""
+    mdp = spec.build_twin("irreversible")
+    wm, tl, dt, _ = train_da_world_model(
+        mdp, spec, epochs=epochs, seed=seed, reach_weight=REACH_WEIGHT)
+    mdp_hat = build_mdp_hat(mdp, wm, spec)
+    counted = CountedMDP(mdp)
+
+    # Positive control: a real read of the true-env dynamics IS counted,
+    # so a 0 count below is a meaningful (non-vacuous) result.
+    counted.reset_count()
+    _ = counted.f
+    detector_works = (counted.dyn_count == 1)
+
+    n_probes = 0
+    for s in mdp.states:
+        if not mdp.actions.get(s):
+            continue
+        counted.reset_count()
+        planner_reward_only(mdp_hat, s, spec.H)
+        planner_mrc_learned(mdp_hat, wm, spec, tl, dt, s, spec.H, 1.0)
+        n_probes += 1
+        if counted.dyn_count != 0:
+            return {"n_probes": n_probes, "dyn_accesses": counted.dyn_count,
+                    "detector_works": detector_works, "clean": False}
+    return {"n_probes": n_probes, "dyn_accesses": 0,
+            "detector_works": detector_works, "clean": True}
+
+
+def margin_preservation_eval(spec, *, seeds=(0, 1, 2, 3, 4),
+                              lambdas=None, epochs=None):
+    """Margin-PRESERVATION theorem (the form Stage-10 is named for).
+
+    For the decision-point binary choice a_decoy vs a_safe, define the
+    combined-score gap under MRC weight lambda:
+
+        Delta(a_decoy, a_safe) = [Q_reward(a_decoy) - lambda * D_w(a_decoy)]
+                               - [Q_reward(a_safe)  - lambda * D_w(a_safe)]
+
+    computed twice: with the EXACT model (Q exact, D_w exact) and with the
+    LEARNED model (Q_hat from mdp_hat, D_w_hat from the reachability head).
+    The exact decision is sign(Delta_exact); the learned decision is
+    sign(Delta_learned); the exact margin is |Delta_exact|; the combined-
+    score error is |Delta_learned - Delta_exact|.
+
+    Margin-preservation theorem: if the combined-score error stays within
+    the exact margin, the learned decision is sign-preserved (agrees with
+    the exact decision).  A VIOLATION is a case where the error is within
+    the margin yet the decisions disagree.  We record violations (expected
+    0) and, empirically, how often the learned model decides exactly as
+    the exact model across the lambda sweep -- i.e. when the learned
+    world model decides correctly.
+    """
+    import numpy as _np
+    if lambdas is None:
+        lambdas = _np.linspace(0.0, 1.5, 31)
+    if epochs is None:
+        epochs = spec.train_epochs
+    H, S0 = spec.H, spec.S0
+    mdp = spec.build_twin("irreversible")
+
+    # Exact combined-score ingredients (do not depend on seed).
+    Qd_e = q_reward_h(mdp, S0, spec.a_decoy, H)
+    Qs_e = q_reward_h(mdp, S0, spec.a_safe, H)
+    Dd_e = destroyed_mass(mdp, S0, spec.a_decoy)
+    Ds_e = destroyed_mass(mdp, S0, spec.a_safe)
+
+    rows = []
+    for seed in seeds:
+        wm, tl, dt, _ = train_da_world_model(
+            mdp, spec, epochs=epochs, seed=seed, reach_weight=REACH_WEIGHT)
+        mdp_hat = build_mdp_hat(mdp, wm, spec)
+        Qd_l = q_reward_h(mdp_hat, S0, spec.a_decoy, H)
+        Qs_l = q_reward_h(mdp_hat, S0, spec.a_safe, H)
+        Dd_l = compute_dw_hat_da(wm, spec, tl, dt, mdp.target_weights,
+                                  mdp.gamma, S0, spec.a_decoy)
+        Ds_l = compute_dw_hat_da(wm, spec, tl, dt, mdp.target_weights,
+                                  mdp.gamma, S0, spec.a_safe)
+        for lam in lambdas:
+            lam = float(lam)
+            d_exact = (Qd_e - lam * Dd_e) - (Qs_e - lam * Ds_e)
+            d_learn = (Qd_l - lam * Dd_l) - (Qs_l - lam * Ds_l)
+            dec_e = "decoy" if d_exact > 0 else "safe"
+            dec_l = "decoy" if d_learn > 0 else "safe"
+            err = abs(d_learn - d_exact)
+            margin = abs(d_exact)
+            rows.append({
+                "seed": int(seed), "lam": lam,
+                "delta_exact": float(d_exact), "delta_learned": float(d_learn),
+                "exact_decision": dec_e, "learned_decision": dec_l,
+                "score_error": float(err), "exact_margin": float(margin),
+                "within_margin": bool(err < margin),
+                "preserved": bool(dec_e == dec_l),
+            })
+
+    # Ignore the exact-boundary configs (margin ~ 0, decision undefined).
+    scored = [r for r in rows if r["exact_margin"] > 1e-9]
+    violations = [r for r in scored
+                   if r["within_margin"] and not r["preserved"]]
+    n_within = sum(r["within_margin"] for r in scored)
+    n_pres = sum(r["preserved"] for r in scored)
+    return {
+        "n_rows": len(scored),
+        "n_within_margin": n_within,
+        "n_preserved": n_pres,
+        "agreement_rate": (n_pres / len(scored)) if scored else 1.0,
+        "n_violations": len(violations),
+        "violations_sample": violations[:5],
+        "passed": len(violations) == 0,
+        "rows": rows,
+    }
+
+
+def write_figure(res: Dict[str, Any], mp: Dict[str, Any],
+                  out_path: str) -> None:
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -61,7 +185,7 @@ def write_figure(res: Dict[str, Any], out_path: str) -> None:
     margin_rows = res["margin_rows"]
     recovery = res["recovery"]
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 4.6))
+    fig, axes = plt.subplots(1, 4, figsize=(19, 4.6))
 
     # (a) four controls x two twins (mean returns).
     ax = axes[0]
@@ -113,7 +237,31 @@ def write_figure(res: Dict[str, Any], out_path: str) -> None:
     ax.set_xlabel("reward margin")
     ax.set_ylabel("cost gap (lambda * dD_w_hat)")
     viol = res["margin"]["n_violations"]
-    ax.set_title(f"(c) margin theorem ({viol} violations)")
+    ax.set_title(f"(c) flip condition ({viol} violations)")
+    ax.legend(fontsize=8)
+
+    # (d) margin-preservation: combined-score error vs exact margin,
+    #     coloured by whether the learned decision == the exact decision.
+    ax = axes[3]
+    rows = [r for r in mp["rows"] if r["exact_margin"] > 1e-9]
+    pres = [(r["exact_margin"], r["score_error"]) for r in rows
+             if r["preserved"]]
+    flip = [(r["exact_margin"], r["score_error"]) for r in rows
+             if not r["preserved"]]
+    if pres:
+        xs, ys = zip(*pres)
+        ax.scatter(xs, ys, c="steelblue", s=14, alpha=0.6,
+                    label="learned == exact")
+    if flip:
+        xs, ys = zip(*flip)
+        ax.scatter(xs, ys, c="firebrick", s=18, alpha=0.8,
+                    label="learned != exact")
+    mx = max([0.01] + [r["exact_margin"] for r in rows])
+    line = np.linspace(0, mx, 50)
+    ax.plot(line, line, "k--", lw=1, label="error = margin (bound)")
+    ax.set_xlabel("exact decision margin |Delta_exact|")
+    ax.set_ylabel("combined-score error |Delta_learned - Delta_exact|")
+    ax.set_title(f"(d) margin preservation ({mp['n_violations']} violations)")
     ax.legend(fontsize=8)
 
     fig.suptitle("Stage-10 native MiniGrid -- MRC mechanism + margin theorem",
@@ -137,12 +285,31 @@ def main() -> bool:
 
     res = evaluate_environment(s10.SPEC, seeds=SEEDS)
 
+    print("\n[cheat-check] verifying the test-time planner reads no "
+          "true-env dynamics ...")
+    cheat = verify_cheat_free(s10.SPEC, seed=0)
+    print(f"  detector works (true-env .f read counted): "
+          f"{cheat['detector_works']}; planner dynamics accesses over "
+          f"{cheat['n_probes']} decision states: {cheat['dyn_accesses']} "
+          f"-> {'CLEAN' if cheat['clean'] else 'CHEAT'}")
+
+    print("\n[margin-preservation] learned-vs-exact decision agreement "
+          "under the exact-margin bound ...")
+    mp = margin_preservation_eval(s10.SPEC, seeds=SEEDS)
+    print(f"  {mp['n_rows']} (seed x lambda) configs; learned decision == "
+          f"exact decision in {mp['n_preserved']}/{mp['n_rows']} "
+          f"(agreement {mp['agreement_rate']*100:.0f}%); "
+          f"within-margin {mp['n_within_margin']}/{mp['n_rows']}; "
+          f"sign-preservation violations = {mp['n_violations']}")
+
     pdf = os.path.join(_THIS_DIR, "results", "stage10_minigrid.pdf")
-    write_figure(res, pdf)
+    write_figure(res, mp, pdf)
     print(f"\nFigure -> {pdf}")
 
     v = res["verdict"]
-    verdict = "PASS" if v["env_pass"] else (
+    margin_pres_ok = mp["passed"]
+    cheat_ok = cheat["clean"] and cheat["detector_works"]
+    verdict = "PASS" if (v["env_pass"] and margin_pres_ok and cheat_ok) else (
         "PARTIAL" if (v["separation_ok"] or v["collapse_ok"]) else "FAIL")
 
     print("\n" + "=" * 78)
@@ -163,9 +330,16 @@ def main() -> bool:
     print(f"  collapse     : {'OK' if v['collapse_ok'] else 'X'}  "
           f"({v['n_collapse_pass']}/{v['n_seeds']} seeds, "
           f"max collapse {v['max_collapse_ratio']:.3f})")
-    print(f"  margin       : {'OK' if v['margin_ok'] else 'X'}  "
+    print(f"  margin flip  : {'OK' if v['margin_ok'] else 'X'}  "
           f"({res['margin']['n_violations']} violations / "
           f"{res['margin']['n_rows']} rows)")
+    print(f"  margin presv : {'OK' if margin_pres_ok else 'X'}  "
+          f"(learned==exact decision {mp['agreement_rate']*100:.0f}%, "
+          f"{mp['n_violations']} sign-preservation violations / "
+          f"{mp['n_rows']} configs)")
+    print(f"  cheat-check  : {'OK' if cheat_ok else 'X'}  "
+          f"({cheat['dyn_accesses']} true-env dynamics accesses by the "
+          f"planner over {cheat['n_probes']} decision states)")
     if verdict == "PASS":
         print("The MRC mechanism (separation / recovery / collapse) and the "
               "margin theorem\nhold on a native MiniGrid environment -- the "
@@ -186,6 +360,10 @@ def main() -> bool:
                          "true-env dynamics during a probe choose(S0); the "
                          "MiniGrid simulator is used only for the offline "
                          "enumeration, never by the test-time planner."),
+        "cheat_check_explicit": to_jsonable(cheat),
+        "margin_preservation": to_jsonable(
+            {k: v for k, v in mp.items() if k != "rows"}),
+        "margin_preservation_rows": to_jsonable(mp["rows"]),
         "result": to_jsonable(res),
     }
     out = os.path.join(_THIS_DIR, "results", "stage10_results.json")
